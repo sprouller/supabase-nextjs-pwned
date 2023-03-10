@@ -1,6 +1,6 @@
 async function getData() {
-    const res = await fetch(
-        `https://haveibeenpwned.com/api/v3/breachedaccount/test@adobe.com?truncatedResponse=false`,
+    const response = await fetch(
+        `https://haveibeenpwned.com/api/v3/breachedaccount/test@adobe.com?truncatedResponse=true`,
         {
             method: 'GET',
             headers: {
@@ -13,18 +13,27 @@ async function getData() {
   
     // Recommendation: handle errors  
 
- const data = await res.json();
-  console.log('data', data);
-  return {
-    props: { breaches: data },
-  };
+ const data = await response.json();
+ console.log('data', data);
+ return {
+   props: { breaches: data },
+ };
 };
   
-  export default async function BreachesTest( { breaches }) {
+  export default async function BreachesTest(breaches) {
     const data = await getData();
-    console.log(data);
+    //console.log(data);
+    const toArray = Array.from(data);
+    //console.log(Array.isArray(toArray));
 
     return (
-       <main>test</main>
-      )
+      <div>
+        <h1>DynBreaches</h1>
+        { toArray.map((breach) => (
+          <div key={breach.Name}>
+            <p>{breach.Name}</p>
+          </div>
+        ))}
+      </div>
+    );
      }

@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 
 import SignOut from 'src/components/SignOut';
 import createClient from 'src/lib/supabase-server';
-import Breaches from 'src/app/pulltest/breach.tsx';
 
 export default async function Profile() {
   const supabase = createClient();
