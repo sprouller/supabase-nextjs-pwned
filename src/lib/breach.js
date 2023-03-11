@@ -32,7 +32,6 @@ async function getData() {
   
     return (
       <div>
-        <h1>DynBreaches</h1>
         { data.map((breach) => (
           <div key={breach.Name}>
             <p>{breach.Name}</p>
