@@ -1,6 +1,17 @@
+import createClient from 'src/lib/supabase-server';
+
 async function getData() {
+
+    const supabase = createClient();
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+  
+    const param = `${user?.email}`;
+
     const response = await fetch(
-        `https://haveibeenpwned.com/api/v3/breachedaccount/test@adobe.com?truncatedResponse=true`,
+        `https://haveibeenpwned.com/api/v3/breachedaccount/${param}?truncatedResponse=true`,
         {
             method: 'GET',
             headers: {
@@ -8,28 +19,21 @@ async function getData() {
             },
         }
     );
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-  
-    // Recommendation: handle errors  
 
  const data = await response.json();
- console.log('data', data);
  return {
    props: { breaches: data },
  };
 };
   
-  export default async function BreachesTest(breaches) {
-    const data = await getData();
-    //console.log(data);
-    const toArray = Array.from(data);
-    //console.log(Array.isArray(toArray));
-
+  export default async function Breach({breaches}) {
+    const dataHere = await getData();
+    let data = dataHere.props.breaches;
+  
     return (
       <div>
         <h1>DynBreaches</h1>
-        { toArray.map((breach) => (
+        { data.map((breach) => (
           <div key={breach.Name}>
             <p>{breach.Name}</p>
           </div>
