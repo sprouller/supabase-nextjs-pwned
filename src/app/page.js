@@ -21,9 +21,8 @@ export default function Home() {
       <div className="card">
         <h2>Welcome!</h2>
         <code className="highlight">{user.role}</code>
-        <Link className="button" href="/profile">
-          Go to Profile
-        </Link>
+        <Link className="button" href="/status">Check Status</Link>
+        <Link className="button" href="/profile">Go to Profile</Link>
         <button type="button" className="button-inverse" onClick={signOut}>
           Sign Out
         </button>
