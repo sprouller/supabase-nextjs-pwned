@@ -20,19 +20,19 @@ async function getData() {
         }
     );
 
- const data = await response.json();
+ const apiResult = await response.json();
  return {
-   props: { breaches: data },
+   props: { breaches: apiResult },
  };
 };
   
   export default async function Breach({breaches}) {
     const dataHere = await getData();
-    let data = dataHere.props.breaches;
+    let apiResult = dataHere.props.breaches;
   
     return (
       <div>
-        { data.map((breach) => (
+        { apiResult.map((breach) => (
           <div key={breach.Name}>
             <p>{breach.Name}</p>
           </div>
